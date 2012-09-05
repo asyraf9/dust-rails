@@ -29,8 +29,15 @@ module Dust
       end
 
       def evaluate(scope, locals, &block)
-        template_root = Dust.config.template_root
-        template_name = file.split(template_root).last.split('.',2).first
+        case Dust.config.naming_convention
+        when 'file_name'
+          template_name = file.split('/').last.split('.').first
+        when 'logical_path'
+          template_name = scope.logical_path.to_s.gsub('"', "")
+        else
+          template_root = Dust.config.template_root
+          template_name = file.split(template_root).last.split('.',2).first
+        
         Source.context.call("dust.compile", data, template_name)
       end
     end
