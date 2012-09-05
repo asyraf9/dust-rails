@@ -5,8 +5,7 @@ require "dust-rails/rails/railtie.rb"
 
 module Dust
   class Config
-    attr_accessor :template_root
-    attr_accessor :naming_convention
+    attr_accessor :template_root, :naming_convention
   end
 
   def self.config
